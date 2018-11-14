@@ -4,12 +4,21 @@ USER root
 
 # Install system packages
 RUN apt-get update \
-    && apt-get install --no-install-recommends -y curl \
+    && apt-get install --no-install-recommends -y \
+        curl \
+        python2.7 \
     && rm -rf /var/lib/apt/lists/*
 
-ENV ANDROID_HOME="/usr/local/android-sdk"
+# Install Google Cloud SDK
+RUN curl -o sdk.tar.gz "https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.tar.gz" \
+    && tar zxf sdk.tar.gz \
+    && mv google-cloud-sdk /usr/local/ \
+    && rm sdk.tar.gz \
+    && /usr/local/google-cloud-sdk/install.sh
+ENV PATH="/usr/local/google-cloud-sdk/bin:$PATH"
 
-# Download Android SDK
+# Install Android SDK
+ENV ANDROID_HOME="/usr/local/android-sdk"
 RUN mkdir "$ANDROID_HOME" .android \
     && cd "$ANDROID_HOME" \
     && curl -o sdk.zip "https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip" \
