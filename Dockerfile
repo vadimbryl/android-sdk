@@ -6,8 +6,15 @@ USER root
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         curl \
+        git \
         python2.7 \
     && rm -rf /var/lib/apt/lists/*
+RUN curl -o get-pip.py https://bootstrap.pypa.io/get-pip.py \
+    && python2.7 get-pip.py \
+    && rm get-pip.py
+
+# AWS command line tools
+RUN pip install awscli
 
 # Install Google Cloud SDK
 RUN curl -o sdk.tar.gz "https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.tar.gz" \
