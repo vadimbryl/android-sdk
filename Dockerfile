@@ -8,6 +8,7 @@ RUN apt-get update \
         curl \
         git \
         python2.7 \
+        ssh \
     && rm -rf /var/lib/apt/lists/*
 RUN curl -o get-pip.py https://bootstrap.pypa.io/get-pip.py \
     && python2.7 get-pip.py \
