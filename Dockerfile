@@ -7,6 +7,7 @@ RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         curl \
         git \
+        make \
         python2.7 \
         ssh \
     && rm -rf /var/lib/apt/lists/*
