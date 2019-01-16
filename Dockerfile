@@ -49,6 +49,6 @@ RUN sdkmanager --update && sdkmanager \
 
 RUN echo no | avdmanager create avd -n "x86" --package "system-images;android-28;google_apis;x86" --tag google_apis
 
-COPY config.ini /root/.android/avd/x86.avd/config.ini
+# COPY config.ini /root/.android/avd/x86.avd/config.ini
 
 CMD ["/bin/bash"]
