@@ -6,6 +6,7 @@ USER root
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         libgl1-mesa-glx \
+        libpulse0:i386 \
         curl \
         git \
         make \
