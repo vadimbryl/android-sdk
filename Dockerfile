@@ -28,6 +28,8 @@ ENV PATH="/usr/local/google-cloud-sdk/bin:$PATH"
 
 # Install Android SDK
 ENV ANDROID_HOME="/usr/local/android-sdk"
+ENV PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$PATH"
+
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
 
 RUN mkdir "$ANDROID_HOME" .android \
@@ -45,10 +47,8 @@ RUN sdkmanager --update && sdkmanager \
         "platform-tools" \
         "emulator" \
         "tools" \
-        "system-images;android-28;google_apis;x86" --verbose | uniq
+        "system-images;android-28;google_apis;x86"
 
 RUN echo no | avdmanager create avd -n "x86" --package "system-images;android-28;google_apis;x86" --tag google_apis
-
-# COPY config.ini /root/.android/avd/x86.avd/config.ini
 
 CMD ["/bin/bash"]
