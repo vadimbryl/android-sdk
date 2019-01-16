@@ -3,7 +3,7 @@ FROM gradle:4.10-jdk8-slim
 USER root
 
 # Install system packages
-RUN apt-get update \
+RUN dpkg --add-architecture i386 && apt-get update \
     && apt-get install --no-install-recommends -y \
         libgl1-mesa-glx \
         libpulse0 \
@@ -12,7 +12,10 @@ RUN apt-get update \
         make \
         python2.7 \
         ssh \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get -yq autoremove && \
+    apt-get clean && \
+    apt-get autoclean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN curl -o get-pip.py https://bootstrap.pypa.io/get-pip.py \
     && python2.7 get-pip.py \
     && rm get-pip.py
