@@ -1,6 +1,18 @@
 # android-sdk
 Docker image with Android SDK for CI systems
 
+#### Tag 0.7
+- Android Emulator
+- make: 4.1
+- awscli: 1.16.76
+- ssh: 7.4
+- Git: 2.11
+- Gradle: 4.10
+- Android: 28
+- SDK Tools: 4333796
+- Build Tools: 28.0.2, 28.0.3
+- Google Cloud SDK
+
 #### Tag 0.6
 - make: 4.1
 - awscli: 1.16.76
