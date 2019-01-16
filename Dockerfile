@@ -28,19 +28,27 @@ ENV PATH="/usr/local/google-cloud-sdk/bin:$PATH"
 
 # Install Android SDK
 ENV ANDROID_HOME="/usr/local/android-sdk"
+ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
+
 RUN mkdir "$ANDROID_HOME" .android \
     && cd "$ANDROID_HOME" \
     && curl -o sdk.zip "https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip" \
     && unzip sdk.zip \
     && rm sdk.zip \
-    && yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+    && yes | sdkmanager --licenses
 
 # Install Android Build Tool and Libraries
-RUN $ANDROID_HOME/tools/bin/sdkmanager --update \
-    && $ANDROID_HOME/tools/bin/sdkmanager \
+RUN sdkmanager --update && sdkmanager \
         "build-tools;28.0.2" \
         "build-tools;28.0.3" \
         "platforms;android-28" \
-        "platform-tools"
+        "platform-tools" \
+        "emulator" \
+        "tools" \
+        "system-images;android-28;google_apis;x86" --verbose | uniq
+
+RUN echo no | avdmanager create avd -n "x86" --package "system-images;android-28;google_apis;x86" --tag google_apis
+
+COPY config.ini /root/.android/avd/x86.avd/config.ini
 
 CMD ["/bin/bash"]
