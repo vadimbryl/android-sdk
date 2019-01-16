@@ -5,6 +5,7 @@ USER root
 # Install system packages
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
+        ia32-libs \
         curl \
         git \
         make \
