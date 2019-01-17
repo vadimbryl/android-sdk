@@ -7,8 +7,6 @@ RUN dpkg --add-architecture i386 && apt-get update \
     && apt-get install --no-install-recommends -y \
         libgl1-mesa-glx \
         libpulse0 \
-        kvm \ 
-        qemu \
         curl \
         git \
         make \
@@ -18,6 +16,9 @@ RUN dpkg --add-architecture i386 && apt-get update \
     apt-get clean && \
     apt-get autoclean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    
+RUN apt-get -y update && DEBIAN_FRONTEND=noninteractive apt-get -y install kvm qemu-kvm libvirt-bin bridge-utils libguestfs-tools
+    
 RUN curl -o get-pip.py https://bootstrap.pypa.io/get-pip.py \
     && python2.7 get-pip.py \
     && rm get-pip.py
