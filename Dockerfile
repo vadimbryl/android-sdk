@@ -37,6 +37,7 @@ ENV PATH="/usr/local/google-cloud-sdk/bin:$PATH"
 
 # Install Android SDK
 ENV ANDROID_SDK_ROOT="/usr/local/android-sdk"
+ENV ANDROID_HOME=$ANDROID_SDK_ROOT
 ENV PATH ${PATH}:${ANDROID_SDK_ROOT}/emulator:${ANDROID_SDK_ROOT}/tools:${ANDROID_SDK_ROOT}/tools/bin:${ANDROID_SDK_ROOT}/platform-tools
 
 RUN mkdir "$ANDROID_SDK_ROOT" .android \
