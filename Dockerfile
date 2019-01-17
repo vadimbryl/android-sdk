@@ -52,14 +52,14 @@ RUN sdkmanager --update && sdkmanager \
         "platform-tools" \
         "emulator" \
         "tools" \
-        "extras;android;m2repository" \
-        "extras;google;m2repository" \
-        "system-images;android-28;google_apis;x86" \
-        "system-images;android-28;google_apis;x86_64"
-        
-RUN sdkmanager --update && "extras;intel;Hardware_Accelerated_Execution_Manager"
+        "system-images;android-28;google_apis;x86"
+  
+  
+RUN -it --privileged -v $(pwd)/sdk:/opt/android-sdk:ro thyrlian/android-sdk /bin/bash
+# RUN sdkmanager --update && "extras;intel;Hardware_Accelerated_Execution_Manager"
 
 RUN echo no | avdmanager create avd -n "x86" --package "system-images;android-28;google_apis;x86" --tag google_apis
-RUN echo no | avdmanager create avd -n "x86_64" -k "system-images;android-28;google_apis;x86_64" --tag google_apis
+
+COPY config.ini /root/.android/avd/x86.avd/config.ini
 
 CMD ["/bin/bash"]
