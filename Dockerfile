@@ -51,9 +51,10 @@ RUN sdkmanager --update && sdkmanager \
         "emulator" \
         "tools" \
         "system-images;android-28;google_apis;x86" \
-        "system-images;android-28;google_apis;armeabi-v7a"
+        "extras;intel;Hardware_Accelerated_Execution_Manager" \
+        "system-images;android-28;google_apis;x86_64"
 
 RUN echo no | avdmanager create avd -n "x86" --package "system-images;android-28;google_apis;x86" --tag google_apis
-RUN echo no | avdmanager create avd -n "arm" -k "system-images;android-28;google_apis;armeabi-v7a" --tag google_apis
+RUN echo no | avdmanager create avd -n "x86_64" -k "system-images;android-28;google_apis;x86_64" --tag google_apis
 
 CMD ["/bin/bash"]
