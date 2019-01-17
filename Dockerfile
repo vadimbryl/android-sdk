@@ -42,6 +42,8 @@ RUN mkdir "$ANDROID_HOME" .android \
     && rm sdk.zip \
     && yes | sdkmanager --licenses
 
+RUN touch /root/.android/repositories.cfg
+
 # Install Android Build Tool and Libraries
 RUN sdkmanager --update && sdkmanager \
         "build-tools;28.0.2" \
