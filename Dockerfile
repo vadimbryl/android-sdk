@@ -7,6 +7,8 @@ RUN dpkg --add-architecture i386 && apt-get update \
     && apt-get install --no-install-recommends -y \
         libgl1-mesa-glx \
         libpulse0 \
+        kvm \ 
+        qemu \
         curl \
         git \
         make \
@@ -53,10 +55,6 @@ RUN sdkmanager --update && sdkmanager \
         "emulator" \
         "tools" \
         "system-images;android-28;google_apis;x86"
-  
-  
-RUN -it --privileged -v $(pwd)/sdk:/opt/android-sdk:ro thyrlian/android-sdk /bin/bash
-# RUN sdkmanager --update && "extras;intel;Hardware_Accelerated_Execution_Manager"
 
 RUN echo no | avdmanager create avd -n "x86" --package "system-images;android-28;google_apis;x86" --tag google_apis
 
