@@ -36,11 +36,11 @@ RUN curl -o sdk.tar.gz "https://dl.google.com/dl/cloudsdk/channels/rapid/google-
 ENV PATH="/usr/local/google-cloud-sdk/bin:$PATH"
 
 # Install Android SDK
-ENV ANDROID_HOME="/usr/local/android-sdk"
-ENV PATH ${PATH}:${ANDROID_HOME}/emulator:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
+ENV ANDROID_SDK_ROOT="/usr/local/android-sdk"
+ENV PATH ${PATH}:${ANDROID_SDK_ROOT}/emulator:${ANDROID_SDK_ROOT}/tools:${ANDROID_SDK_ROOT}/tools/bin:${ANDROID_SDK_ROOT}/platform-tools
 
-RUN mkdir "$ANDROID_HOME" .android \
-    && cd "$ANDROID_HOME" \
+RUN mkdir "$ANDROID_SDK_ROOT" .android \
+    && cd "$ANDROID_SDK_ROOT" \
     && curl -o sdk.zip "https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip" \
     && unzip sdk.zip \
     && rm sdk.zip \
