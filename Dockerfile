@@ -12,7 +12,8 @@ RUN dpkg --add-architecture i386 && apt-get update \
         make \
         python2.7 \
         ssh \
-        kvm qemu-kvm libvirt-bin bridge-utils libguestfs-tools
+        kvm \
+        qemu-kvm
 
 RUN apt-get -yq autoremove && \
     apt-get clean && \
