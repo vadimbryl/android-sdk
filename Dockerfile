@@ -12,13 +12,13 @@ RUN dpkg --add-architecture i386 && apt-get update \
         make \
         python2.7 \
         ssh \
-    && apt-get -yq autoremove && \
+        kvm qemu-kvm libvirt-bin bridge-utils libguestfs-tools
+
+RUN apt-get -yq autoremove && \
     apt-get clean && \
     apt-get autoclean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-    
-RUN apt-get -y update && DEBIAN_FRONTEND=noninteractive apt-get -y install kvm qemu-kvm libvirt-bin bridge-utils libguestfs-tools
-    
+
 RUN curl -o get-pip.py https://bootstrap.pypa.io/get-pip.py \
     && python2.7 get-pip.py \
     && rm get-pip.py
@@ -60,6 +60,6 @@ RUN sdkmanager --update && sdkmanager \
 RUN echo no | avdmanager create avd -n "x86" --package "system-images;android-28;google_apis;x86" --tag google_apis
 
 COPY config.ini /root/.android/avd/x86.avd/config.ini
-ADD entrypoint.sh /entrypoint.sh
-CMD /entrypoint.sh
+# ADD entrypoint.sh /entrypoint.sh
+# CMD /entrypoint.sh
 CMD ["/bin/bash"]
