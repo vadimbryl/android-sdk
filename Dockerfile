@@ -5,15 +5,11 @@ USER root
 # Install system packages
 RUN dpkg --add-architecture i386 && apt-get update \
     && apt-get install --no-install-recommends -y \
-        libgl1-mesa-glx \
-        libpulse0 \
         curl \
         git \
         make \
         python2.7 \
-        ssh \
-        kvm \
-        qemu-kvm
+        ssh
 
 RUN apt-get -yq autoremove && \
     apt-get clean && \
@@ -54,11 +50,6 @@ RUN sdkmanager --update && sdkmanager \
         "build-tools;28.0.2" \
         "build-tools;28.0.3" \
         "platforms;android-28" \
-        "platform-tools" \
-        "emulator" \
-        "tools" \
-        "system-images;android-28;google_apis;x86"
-
-RUN echo no | avdmanager create avd -n "x86" --package "system-images;android-28;google_apis;x86" --tag google_apis
+        "platform-tools"
 
 CMD ["/bin/bash"]
