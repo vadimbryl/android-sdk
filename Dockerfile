@@ -9,7 +9,14 @@ RUN dpkg --add-architecture i386 && apt-get update \
         git \
         make \
         python2.7 \
-        ssh
+        ssh \
+        libnet-ssleay-perl \
+        libcrypt-ssleay-perl \
+        wget \
+        unzip \
+        build-essential \
+        libssl-dev \
+        libexpat-dev
 
 RUN apt-get -yq autoremove && \
     apt-get clean && \
@@ -51,5 +58,29 @@ RUN sdkmanager --update && sdkmanager \
         "build-tools;28.0.3" \
         "platforms;android-28" \
         "platform-tools"
+
+WORKDIR /usr/lib
+
+ENV SERGE_VERSION=1.3
+
+RUN wget https://github.com/evernote/serge/archive/1.3.zip -O serge-$SERGE_VERSION.zip && \
+    unzip serge-$SERGE_VERSION.zip && \
+    unlink serge-$SERGE_VERSION.zip
+
+RUN cpan App::cpanminus
+
+WORKDIR /usr/lib/serge-$SERGE_VERSION
+
+RUN cpanm --force --installdeps . && \
+    cpanm --test-only . && \
+    ./Build distclean
+
+WORKDIR /usr/lib
+
+RUN ln -s serge-$SERGE_VERSION serge && \
+    ln -s /usr/lib/serge/bin/serge /usr/bin/serge
+
+RUN cpanm Serge::Sync::Plugin::TranslationService::Smartcat
+RUN cpanm LWP::Protocol::https
 
 CMD ["/bin/bash"]
