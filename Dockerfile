@@ -61,13 +61,15 @@ RUN sdkmanager --update && sdkmanager \
 
 WORKDIR /usr/lib
 
-RUN wget https://github.com/evernote/serge/archive/1.3.zip -O serge-1.3.zip && \
-    unzip serge-1.3.zip && \
-    unlink serge-1.3.zip
+ENV SERGE_VERSION=1.3
+
+RUN wget https://github.com/evernote/serge/archive/1.3.zip -O serge-$SERGE_VERSION.zip && \
+    unzip serge-$SERGE_VERSION.zip && \
+    unlink serge-$SERGE_VERSION.zip
 
 RUN cpan App::cpanminus
 
-WORKDIR /usr/lib/serge-1.3
+WORKDIR /usr/lib/serge-$SERGE_VERSION
 
 RUN cpanm --force --installdeps . && \
     cpanm --test-only . && \
@@ -75,7 +77,7 @@ RUN cpanm --force --installdeps . && \
 
 WORKDIR /usr/lib
 
-RUN ln -s serge-1.3 serge && \
+RUN ln -s serge-$SERGE_VERSION serge && \
     ln -s /usr/lib/serge/bin/serge /usr/bin/serge
 
 RUN cpanm Serge::Sync::Plugin::TranslationService::Smartcat
