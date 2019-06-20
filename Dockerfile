@@ -1,4 +1,4 @@
-FROM gradle:5.4.0-jdk8-slim
+FROM gradle:5.4.1-jdk8-slim
 
 USER root
 
