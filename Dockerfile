@@ -9,6 +9,7 @@ RUN dpkg --add-architecture i386 && apt-get update \
         git \
         make \
         python2.7 \
+        python3 \
         ssh \
         libnet-ssleay-perl \
         libcrypt-ssleay-perl \
